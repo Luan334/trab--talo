@@ -1,0 +1,23 @@
+<h1 class="mb-4">Inserir Nome</h1>
+
+<form action="/teste/insertteste" method="POST" class="mb-4">
+  <div class="mb-3">
+    <input type="text" name="nome" class="form-control" placeholder="Digite o nome" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<h2>Registros salvos:</h2>
+<ul class="list-group">
+  {{#each nomes}}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{this.nome}}
+      <span>
+        <a href="/teste/editar/{{this.id}}" class="btn btn-sm btn-warning">✏️</a>
+        <a href="/teste/deletar/{{this.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">❌</a>
+      </span>
+    </li>
+  {{/each}}
+</ul>
+
+

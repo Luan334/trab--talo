@@ -1,0 +1,11 @@
+<h1 class="mb-4">Editar Nome</h1>
+
+<form action="/teste/atualizar/{{dado.id}}" method="POST" class="mb-4">
+  <div class="mb-3">
+    <input type="text" name="nome" class="form-control" value="{{dado.nome}}" required>
+  </div>
+  <button type="submit" class="btn btn-success">Atualizar</button>
+  <a href="/" class="btn btn-secondary">Cancelar</a>
+</form>
+
+

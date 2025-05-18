@@ -1,0 +1,11 @@
+CREATE DATABASE testdb;
+
+USE testdb;
+
+CREATE TABLE teste (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255)
+);
+
+
+
