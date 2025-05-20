@@ -1,11 +1,47 @@
-<h1 class="mb-4">Editar Nome</h1>
+<h1 class="mb-4">Editar Dados</h1>
 
 <form action="/teste/atualizar/{{dado.id}}" method="POST" class="mb-4">
   <div class="mb-3">
     <input type="text" name="nome" class="form-control" value="{{dado.nome}}" required>
   </div>
+  <div class="mb-3">
+    <input type="text" name="cpf" class="form-control" value="{{dado.cpf}}" required maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+  </div>
+  <div class="mb-3">
+    <input type="text" name="telefone" class="form-control" value="{{dado.telefone}}" required maxlength="15" pattern="\(\d{2}\) \d{5}-\d{4}">
+  </div>
   <button type="submit" class="btn btn-success">Atualizar</button>
   <a href="/" class="btn btn-secondary">Cancelar</a>
 </form>
 
+<script>
+  function formatarCPF(campo) {
+    let valor = campo.value.replace(/\D/g, '');
+    if (valor.length > 11) valor = valor.slice(0, 11);
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    campo.value = valor;
+  }
 
+  function formatarTelefone(campo) {
+    let valor = campo.value.replace(/\D/g, '');
+    if (valor.length > 11) valor = valor.slice(0, 11);
+    valor = valor.replace(/(\d{2})(\d)/, "($1) $2");
+    valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    campo.value = valor;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cpfInput = document.querySelector('input[name="cpf"]');
+    const telInput = document.querySelector('input[name="telefone"]');
+
+    if (cpfInput) {
+      cpfInput.addEventListener('input', () => formatarCPF(cpfInput));
+    }
+
+    if (telInput) {
+      telInput.addEventListener('input', () => formatarTelefone(telInput));
+    }
+  });
+</script>

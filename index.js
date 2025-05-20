@@ -36,13 +36,14 @@ app.get('/', (req, res) => {
 
 // Inserir novo nome
 app.post('/teste/insertteste', (req, res) => {
-  const nome = req.body.nome;
-  const sql = `INSERT INTO teste (nome) VALUES (?)`;
-  conn.query(sql, [nome], err => {
+  const { nome, cpf, telefone } = req.body;
+  const sql = `INSERT INTO teste (nome, cpf, telefone) VALUES (?, ?, ?)`;
+  conn.query(sql, [nome, cpf, telefone], err => {
     if (err) throw err;
     res.redirect('/');
   });
 });
+
 
 // Mostrar tela de edição
 app.get('/teste/editar/:id', (req, res) => {
@@ -57,13 +58,14 @@ app.get('/teste/editar/:id', (req, res) => {
 // Atualizar no banco
 app.post('/teste/atualizar/:id', (req, res) => {
   const id = req.params.id;
-  const nome = req.body.nome;
-  const sql = `UPDATE teste SET nome = ? WHERE id = ?`;
-  conn.query(sql, [nome, id], err => {
+  const { nome, cpf, telefone } = req.body;
+  const sql = `UPDATE teste SET nome = ?, cpf = ?, telefone = ? WHERE id = ?`;
+  conn.query(sql, [nome, cpf, telefone, id], err => {
     if (err) throw err;
     res.redirect('/');
   });
 });
+
 
 // Deletar do banco
 app.get('/teste/deletar/:id', (req, res) => {
@@ -74,6 +76,26 @@ app.get('/teste/deletar/:id', (req, res) => {
     res.redirect('/');
   });
 });
+
+app.get('/teste/limpar-cpf/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = `UPDATE teste SET cpf = '' WHERE id = ?`;
+  conn.query(sql, [id], err => {
+    if (err) throw err;
+    res.redirect('/');
+  });
+});
+
+app.get('/teste/limpar-telefone/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = `UPDATE teste SET telefone = '' WHERE id = ?`;
+  conn.query(sql, [id], err => {
+    if (err) throw err;
+    res.redirect('/');
+  });
+});
+
+
 
 app.listen(3000, () => {
   console.log('Servidor rodando em http://localhost:3000');

@@ -4,20 +4,61 @@
   <div class="mb-3">
     <input type="text" name="nome" class="form-control" placeholder="Digite o nome" required>
   </div>
+  <div class="mb-3">
+    <input type="text" name="cpf" class="form-control" placeholder="Digite o CPF" required>
+  </div>
+  <div class="mb-3">
+    <input type="text" name="telefone" class="form-control" placeholder="Digite o telefone" required>
+  </div>
   <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
 
 <h2>Registros salvos:</h2>
 <ul class="list-group">
   {{#each nomes}}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      {{this.nome}}
-      <span>
+    <li class="list-group-item d-flex justify-content-between align-items-start flex-column">
+      <div><strong>Nome:</strong> {{this.nome}}</div>
+      <div><strong>CPF:</strong> {{this.cpf}}</div>
+      <div><strong>Telefone:</strong> {{this.telefone}}</div>
+      <div class="mt-2">
         <a href="/teste/editar/{{this.id}}" class="btn btn-sm btn-warning">✏️</a>
         <a href="/teste/deletar/{{this.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">❌</a>
-      </span>
+        <a href="/teste/limpar-cpf/{{this.id}}" class="btn btn-sm btn-outline-danger">🧹 CPF</a>
+        <a href="/teste/limpar-telefone/{{this.id}}" class="btn btn-sm btn-outline-danger">🧹 Telefone</a>
+      </div>
     </li>
   {{/each}}
+  <script>
+  function formatarCPF(campo) {
+    let valor = campo.value.replace(/\D/g, '');
+
+    if (valor.length > 11) valor = valor.slice(0, 11);
+
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+    campo.value = valor;
+  }
+
+  function formatarTelefone(campo) {
+    let valor = campo.value.replace(/\D/g, '');
+
+    if (valor.length > 11) valor = valor.slice(0, 11);
+
+    valor = valor.replace(/(\d{2})(\d)/, "($1) $2");
+    valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+
+    campo.value = valor;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cpfInput = document.querySelector('input[name="cpf"]');
+    const telInput = document.querySelector('input[name="telefone"]');
+
+    cpfInput.addEventListener('input', () => formatarCPF(cpfInput));
+    telInput.addEventListener('input', () => formatarTelefone(telInput));
+  });
+</script>
+
 </ul>
-
-
