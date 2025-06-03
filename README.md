@@ -1,114 +1,113 @@
-CRUD de Cadastro de Usuários
+# 📘 Cadastro de Usuários
 
-Este projeto é uma aplicação web simples de cadastro de usuários (CRUD) utilizando as tecnologias Node.js, Express , MySQL e Handlebars. A aplicação permite cadastrar, listar, editar, excluir e limpar campos de usuários (nome, CPF e telefone).
+## 📌 Visão Geral
+Este projeto é um sistema de **Cadastro de Usuários** que permite:
+- Inserir novos usuários com nome, CPF e telefone.
+- Editar dados dos usuários cadastrados.
+- Deletar usuários ou limpar apenas o CPF ou o telefone.
+- Exibir e ocultar a lista de usuários cadastrados.
 
-Estrutura do Projeto
+O projeto utiliza Node.js, Express e MySQL, com o mecanismo de templates Handlebars para renderizar as páginas.
 
+---
 
-├── index.js               # Servidor Node.js
-├── package.json           # Dependências e scripts
-├── package-lock.json      # Detalhes das versões das dependências
-├── bd_sql.sql             # Script de criação do banco de dados
-├── public/
-│   └── style.css          # Estilos personalizados
-├── views/
-│   ├── main.handlebars    # Template base
-│   ├── home.handlebars    # Tela principal (cadastro e listagem)
-│   └── editar.handlebars  # Tela de edição
+## 🚀 Tecnologias Utilizadas
+- **Node.js**: Plataforma para desenvolvimento back-end.
+- **Express**: Framework para servidor web.
+- **MySQL**: Banco de dados relacional.
+- **Express-Handlebars**: Motor de templates para renderizar as views.
+- **Bootstrap 5**: Framework CSS para estilização.
+- **MySQL2**: Biblioteca de conexão com MySQL.
 
+---
 
-Tecnologias Utilizadas
+## 📂 Estrutura de Arquivos
 
-Node.js
-Express
-MySQL2
-Express-Handlebars
-Bootstrap 5
-JavaScript (vanilla)
+projeto/
+│
+├── index.js # Arquivo principal da aplicação Express
+├── package.json # Dependências e scripts
+├── package-lock.json # Gerenciamento de versões
+│
+├── views/ # Templates Handlebars
+│ ├── home.handlebars # Página de cadastro e lista de usuários
+│ ├── editar.handlebars # Página de edição de usuário
+│ └── layouts/
+│ └── main.handlebars# Layout base (opcional)
+│
+└── public/ # Arquivos estáticos (CSS, JS, imagens)
 
-Instalação
+---
 
-Clone o repositório:
+## 🔧 Instalação e Execução
+
+1️⃣ **Clonar o repositório**:
+```bash
+git clone <link-do-repositorio>
+cd projeto
+2️⃣ Instalar dependências:
+
 bash
- 	  	git clone <repo-url>
-   		cd aula-c-do-crud
-   
+npm install
+3️⃣ Configurar o banco de dados:
 
-3.2  Instale as dependências:
-bash
-  		 npm install
-  
-3.3 Configure o banco de dados:
-Execute o arquivo `bd_sql.sql` no seu servidor MySQL para criar a base de dados `testdb` e a tabela `teste`.
+Certifique-se de ter o MySQL instalado e rodando.
 
-3.4 Inicie o servidor:
-bash
-  	   npm start
- 
-3.5  Acesse no navegador:
-http://localhost:3000
-  
+Crie o banco de dados:
 
+sql
 
+CREATE DATABASE testdb;
+Crie a tabela:
 
+sql
 
-Banco de Dados
-
-4.1 	 Estrutura da Tabela `teste`
-
-```sql
 CREATE TABLE teste (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255),
-  cpf VARCHAR(14),
-  telefone VARCHAR(15)
+  cpf VARCHAR(14) DEFAULT NULL,
+  telefone VARCHAR(15) DEFAULT NULL,
+  UNIQUE KEY (cpf)
 );
-```
 
+⚠️ Observação: Se desejar permitir CPFs vazios (NULL), mantenha o campo cpf como DEFAULT NULL e use NULL no código de limpeza de CPF.
 
-4.2 Rotas da Aplicação
+4️⃣ Executar o servidor:
+bash
+node index.js
 
-| Método | Rota                         | Descrição                           |
-|--------|------------------------------|-------------------------------------|
-| GET    | `/`                          | Lista todos os registros            |
-| POST   | `/teste/insertteste`         | Insere novo registro                |
-| GET    | `/teste/editar/:id`          | Abre tela de edição de registro     |
-| POST   | `/teste/atualizar/:id`       | Atualiza um registro                |
-| GET    | `/teste/deletar/:id`         | Exclui um registro                  |
-| GET    | `/teste/limpar-cpf/:id`      | Limpa o campo CPF do registro       |
-| GET    | `/teste/limpar-telefone/:id` | Limpa o campo telefone do registro  |
+4️⃣Ou para desenvolvimento com reinicialização automática:
 
+bash
+npx nodemon index.js
 
-Telas
+5️⃣ Acessar no navegador:
 
-5.1 Página Inicial (`home.handlebars`):
-Formulário para inserir novos usuários
-Lista de registros já salvos
-Botões para editar, excluir, limpar CPF e telefone
-Layout responsivo com Bootstrap
+http://localhost:3000
 
-5.2 Página de Edição (`editar.handlebars`):
-Formulário pré-preenchido com os dados do usuário
-Validações de formato para CPF e telefone via HTML e JavaScript
+📋 Funcionalidades Implementadas
+✅ Cadastro de usuários: formulário para inserir nome, CPF e telefone, com validação de formato.
+✅ Listagem de usuários: exibe todos os usuários cadastrados em cards.
+✅ Edição de usuários: tela para editar os dados de um usuário específico.
+✅ Exclusão de usuários: botão para excluir um usuário com confirmação.
+✅ Limpeza de CPF: botão para limpar apenas o CPF de um usuário.
+✅ Limpeza de telefone: botão para limpar apenas o telefone de um usuário.
+✅ Ocultar/exibir lista: botão para ocultar ou exibir os registros salvos.
+✅ Validação de CPF duplicado: o sistema impede inserção ou atualização de um CPF já existente.
 
-Estilização
+🔒 Restrições de Banco de Dados
+O campo cpf tem uma restrição UNIQUE, garantindo que nenhum CPF duplicado seja cadastrado (exceto se o valor for NULL).
 
-Bootstrap é usado para o layout responsivo e estilos básicos.
-Um CSS customizado adicional (`style.css`) define a tipografia e centralização dos formulários.
+O campo cpf permite NULL, permitindo limpar o CPF sem causar erro.
 
+🎨 Estilização
+Utiliza Bootstrap 5 para responsividade e estilo limpo.
+Inclui ícones com Bootstrap Icons.
 
-Scripts NPM
+🛠️ Melhorias Futuras
 
-```json
-"scripts": {
-  "start": "nodemon ./index.js"
-}
-
-Utiliza **nodemon** para recarregar automaticamente o servidor durante o desenvolvimento.
-
-
-Observações de Segurança
-
-Este projeto não implementa sanitização de entrada nem proteção contra SQL Injection além do uso de parâmetros no `mysql2`.
-Não há autenticação de usuários ou controle de acesso implementado.
-Validações de dados são mínimas (apenas HTML pattern).
+Implementar autenticação de usuários (login).
+Adicionar paginação na listagem.
+Adicionar máscaras de input no front-end (bibliotecas ).
+Validação de CPF no back-end (ex.: dígito verificador).
+Exportação de dados para CSV/PDF.
