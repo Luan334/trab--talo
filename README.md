@@ -43,7 +43,7 @@ projeto/
 
 1️⃣ **Clonar o repositório**:
 ```bash
-git clone <link-do-repositorio>
+git clone <https://github.com/Luan334/trab-italo.git>
 cd projeto
 2️⃣ Instalar dependências:
 
