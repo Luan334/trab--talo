@@ -111,3 +111,4 @@ Adicionar paginação na listagem.
 Adicionar máscaras de input no front-end (bibliotecas ).
 Validação de CPF no back-end (ex.: dígito verificador).
 Exportação de dados para CSV/PDF.
+>>>>>>> e2ca104 (Projeto final)

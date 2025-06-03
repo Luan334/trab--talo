@@ -6,7 +6,7 @@ USE testdb;
 CREATE TABLE teste (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255),
-  cpf VARCHAR(14),
+  cpf VARCHAR(14) UNIQUE,
   telefone VARCHAR(15)
 );
 
